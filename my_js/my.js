@@ -4,7 +4,7 @@ $(document).ready(function () {
             url: "https://api.coingecko.com/api/v3/coins/list", success: function (result) {
                 console.log(result);
                 for (var i = 0, len = 10; i < len; i++) {
-                $(".row").append(`
+                    $(".row").append(`
 <div class="col-lg-3">
 <!-- card -->
 <div class="card">
@@ -16,10 +16,10 @@ $(document).ready(function () {
     </div>
 </div>
 </div>
-`); 
-                  }
+`);
+                }
 
-            
+
             }
         });
     });
