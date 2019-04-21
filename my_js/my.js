@@ -21,7 +21,7 @@ $(document).ready(function () {
         <div id="demo${i}" class="collapse in">  
         <div class="loader"></div>   
         </div>
-    </div>
+    </div>h
  </div>
 </div>
 `);
@@ -33,6 +33,13 @@ $(document).ready(function () {
     // function fo more info
     // ========================
     $("body").on('click', '.moreinfo', function () {
+    // ===============
+    // set the timeout
+    // ================ 
+
+    // ====================
+    // get data from server
+    // ==================== 
         var coinid = $(this).parent().find("#identify").text();
         var dataplace=$(this).attr("data-target");
         console.log(coinid);
