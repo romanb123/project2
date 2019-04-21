@@ -9,7 +9,8 @@ $(document).ready(function () {
                 for (var i = 0, len = 10; i < len; i++) {
                     $(".row").append(`
 <!-- card -->
-<div class="card col-lg-3">
+<div class="col-lg-3 col-md-6 col-sm-12" >
+<div class="card">
     <div class="card-body">  
     <h1 class="card-title">${result[i].name}</h1>
         <h4 class="card-title"><span class="bold">id=</span>"<span id="identify">${result[i].id}</span>"</h4>
@@ -17,12 +18,11 @@ $(document).ready(function () {
         ${result[i].symbol}"</h4>
       
         <button type="button" class="btn btn-info moreinfo" data-toggle="collapse" data-target="#demo${i}">Simple collapsible</button>
-        <div id="demo${i}" class="collapse in">
-        
+        <div id="demo${i}" class="collapse in">     
         </div>
     </div>
+ </div>
 </div>
-
 `);
                 }
             }
@@ -42,8 +42,8 @@ $(document).ready(function () {
                 <div class="row">
                 <div class="col-lg-6">            
                 <span>${result.market_data.current_price.usd}<span class="bold">$</span></span><br> 
-                <span>${result.market_data.current_price.aed}</span><br> 
-                <span>${result.market_data.current_price.aed}</span><br>    
+                <span>${result.market_data.current_price.eur}<span class="bold">€</span></span><br> 
+                <span>${result.market_data.current_price.ils}<span class="bold">₪</span></span><br>    
                 </div>
                 <div class="col-lg-6">            
                 <img src="${result.image.small}" class="rounded" alt="Cinque Terre">           
