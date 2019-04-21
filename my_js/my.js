@@ -18,7 +18,8 @@ $(document).ready(function () {
         ${result[i].symbol}"</h4>
       
         <button type="button" class="btn btn-info moreinfo" data-toggle="collapse" data-target="#demo${i}">Simple collapsible</button>
-        <div id="demo${i}" class="collapse in">     
+        <div id="demo${i}" class="collapse in">  
+        <div class="loader"></div>   
         </div>
     </div>
  </div>
