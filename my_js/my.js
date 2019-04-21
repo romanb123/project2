@@ -38,7 +38,18 @@ $(document).ready(function () {
         console.log(dataplace);
         $.ajax({
             url: `https://api.coingecko.com/api/v3/coins/` + coinid, success: function (result) {
-                $("body").find(`${dataplace}`).html(JSON.stringify(result));
+                $("body").find(`${dataplace}`).html(`
+                <div class="row">
+                <div class="col-lg-6">            
+                <span>${result.market_data.current_price.usd}<span class="bold">$</span></span><br> 
+                <span>${result.market_data.current_price.aed}</span><br> 
+                <span>${result.market_data.current_price.aed}</span><br>    
+                </div>
+                <div class="col-lg-6">            
+                <img src="${result.image.small}" class="rounded" alt="Cinque Terre">           
+                </div>
+                </div>
+                `);
                 console.log(result);
             }
         });

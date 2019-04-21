@@ -27,17 +27,20 @@
         <!-- row -->
         <div class="row">
             <!-- card -->
-            <div class="card col-lg-3">
-                <img class="card-img-top" src="img_avatar1.png" alt="Card image" style="width:100%">
-                <div class="card-body">
-                    <h4 class="card-title">John Doe</h4>
-                    <p class="card-text">Some example text some example text. John Doe is an architect and engineer
-                    </p>
-                    <button type="button" class="btn btn-info " data-toggle="collapse" data-target="#demo">Simple collapsible</button>
-                    <div id="demo" class="collapse in">
-                      Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                      sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                      quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+            <div class="col col-sm-12 col-md-12 col-lg-4  ">
+                <div class="card">
+                    <div class="card-body">
+                        <h1 class="card-title">${result[i].name}</h1>
+                        <h4 class="card-title"><span class="bold">id=</span>"<span id="identify">${result[i].id}</span>"
+                        </h4>
+                        <h4 class="card-title"><span class="bold">symbol"</span>=
+                            ${result[i].symbol}"</h4>
+
+                        <button type="button" class="btn btn-info moreinfo" data-toggle="collapse"
+                            data-target="#demo${i}">Simple collapsible</button>
+                        <div id="demo${i}" class="collapse in">
+
+                        </div>
                     </div>
                 </div>
             </div>
