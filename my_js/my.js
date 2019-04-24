@@ -1,3 +1,5 @@
+var timearray = [];
+
 $(document).ready(function () {
     // ========================
     // function for all coins
@@ -9,9 +11,9 @@ $(document).ready(function () {
                 for (var i = 0, len = 10; i < len; i++) {
                     $(".row").append(`
 <!-- card -->
-<div class="col-lg-3 col-md-6 col-sm-12" >
+<div class="col-lg-3 col-md-6 col-sm-12">
 <div class="card">
-    <div class="card-body">  
+    <div class="card-body" id=${i}>  
     <h1 class="card-title">${result[i].name}</h1>
         <h4 class="card-title"><span class="bold">id=</span>"<span id="identify">${result[i].id}</span>"</h4>
         <h4 class="card-title"><span class="bold">symbol"</span>=
@@ -19,9 +21,15 @@ $(document).ready(function () {
       
         <button type="button" class="btn btn-info moreinfo" data-toggle="collapse" data-target="#demo${i}">Simple collapsible</button>
         <div id="demo${i}" class="collapse in">  
-        <div class="loader"></div>   
+        <div class="spinner">
+        <div class="rect1"></div>
+        <div class="rect2"></div>
+        <div class="rect3"></div>
+        <div class="rect4"></div>
+        <div class="rect5"></div>
+      </div>
         </div>
-    </div>h
+    </div>
  </div>
 </div>
 `);
@@ -33,20 +41,23 @@ $(document).ready(function () {
     // function fo more info
     // ========================
     $("body").on('click', '.moreinfo', function () {
-    // ===============
-    // set the timeout
-    // ================ 
-
-    // ====================
-    // get data from server
-    // ==================== 
         var coinid = $(this).parent().find("#identify").text();
-        var dataplace=$(this).attr("data-target");
+        var idforstring = $(this).parent().attr("id");
+        var dataplace = $(this).attr("data-target");
         console.log(coinid);
         console.log(dataplace);
-        $.ajax({
-            url: `https://api.coingecko.com/api/v3/coins/` + coinid, success: function (result) {
-                $("body").find(`${dataplace}`).html(`
+ var time = new Date();
+ var timenow=time.getTime();
+        // =================
+        // set the condition
+        // =================
+        if (timearray[idforstring] ==null || timenow > timearray[idforstring]) {
+            // ====================
+            // get data from server
+            // ====================   
+            $.ajax({
+                url: `https://api.coingecko.com/api/v3/coins/` + coinid, success: function (result) {
+                    $("body").find(`${dataplace}`).html(`
                 <div class="row">
                 <div class="col-lg-6">            
                 <span>${result.market_data.current_price.usd}<span class="bold">$</span></span><br> 
@@ -58,8 +69,27 @@ $(document).ready(function () {
                 </div>
                 </div>
                 `);
-                console.log(result);
-            }
-        });
+                // =======================================
+                // set time when ajax requet made to array
+                // ======================================= 
+                    var timeclicked = new Date();
+                   
+                    countstart = timeclicked.getTime() + 120000;                  
+                    timearray[idforstring] = countstart;
+                    console.log("SERVER"+"the request::"+timearray[idforstring]+
+                    "timenow::"+timenow);
+                // =============================== 
+                // store the data to local storage
+                // =============================== 
+
+
+                  
+                }
+            });
+        }
+        else{
+            console.log("LOCAL"+"the request::"+timearray[idforstring]
+            +"timenow::"+timenow);    
+        }
     });
 });
