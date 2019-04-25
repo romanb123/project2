@@ -1,4 +1,5 @@
 var timearray = [];
+var storage_array = [];
 
 $(document).ready(function () {
     // ========================
@@ -46,12 +47,14 @@ $(document).ready(function () {
         var dataplace = $(this).attr("data-target");
         console.log(coinid);
         console.log(dataplace);
- var time = new Date();
- var timenow=time.getTime();
+        var time = new Date();
+        var timenow = time.getTime();
         // =================
         // set the condition
         // =================
-        if (timearray[idforstring] ==null || timenow > timearray[idforstring]) {
+        console.log($(this).attr("class"))collapsed
+        if()
+        if (timearray[idforstring] == null || timenow > timearray[idforstring]) {
             // ====================
             // get data from server
             // ====================   
@@ -69,27 +72,64 @@ $(document).ready(function () {
                 </div>
                 </div>
                 `);
-                // =======================================
-                // set time when ajax requet made to array
-                // ======================================= 
+                    // =======================================
+                    // set time when ajax requet made to array
+                    // ======================================= 
                     var timeclicked = new Date();
-                   
-                    countstart = timeclicked.getTime() + 120000;                  
+
+                    countstart = timeclicked.getTime() + 120000;
                     timearray[idforstring] = countstart;
-                    console.log("SERVER"+"the request::"+timearray[idforstring]+
-                    "timenow::"+timenow);
-                // =============================== 
-                // store the data to local storage
-                // =============================== 
+                    console.log("SERVER" + "the request::" + timearray[idforstring] +
+                        "timenow::" + timenow);
+                    // =============================== 
+                    // store the data to local storage
+                    // =============================== 
 
+                    var checker = localStorage.getItem("coinsdata");
+                    if (checker == null) {
+                        storage_array = [];
+                    }
+                    else {
+                        storage_array = JSON.parse(localStorage.getItem("coinsdata"));
+                    }
+                    console.log(storage_array);
+                    var thiscoin = {};
+                    thiscoin.dollar = result.market_data.current_price.usd;
+                    thiscoin.euro = result.market_data.current_price.eur;
+                    thiscoin.shekels = result.market_data.current_price.ils;
+                    thiscoin.pic = result.image.small;
+                    console.log(thiscoin);
+                    console.log(storage_array);
+                    storage_array[idforstring] = thiscoin;
+                    var array2storage = JSON.stringify(storage_array);
+                    localStorage.setItem("coinsdata", array2storage);
 
-                  
                 }
             });
         }
-        else{
-            console.log("LOCAL"+"the request::"+timearray[idforstring]
-            +"timenow::"+timenow);    
+                    // =============================== 
+                    // get data from local storage
+                    // =============================== 
+        else {
+            console.log("LOCAL" + "the request::" + timearray[idforstring]
+                + "timenow::" + timenow);
+                fromstorage = JSON.parse(localStorage.getItem("coinsdata"));
+                console.log(fromstorage);
+                console.log("this data"+fromstorage[idforstring].dollar);
+                $("body").find(`${dataplace}`).html(`
+                <div class="row">
+                <div class="col-lg-6">
+                <h1>from local storage</h1>            
+                <span> <span class="bold">${fromstorage[idforstring].dollar}$</span></span><br> 
+                <span> <span class="bold">${fromstorage[idforstring].euro}€</span></span><br> 
+                <span> <span class="bold">₪${fromstorage[idforstring].shekels}</span></span><br>    
+                </div>
+                <div class="col-lg-6">            
+                <img src="${fromstorage[idforstring].pic}" class="rounded" alt="Cinque Terre">           
+                </div>
+                </div>
+                `);
+                
         }
     });
 });
