@@ -1,5 +1,6 @@
 var timearray = [];
 var storage_array = [];
+h=0;
 
 $(document).ready(function () {
     // ========================
@@ -44,6 +45,8 @@ $(document).ready(function () {
     $("body").on('click', '.moreinfo', function () {
         var coinid = $(this).parent().find("#identify").text();
         var idforstring = $(this).parent().attr("id");
+        var flag= $(this).parent().find("div:first").attr("class");
+        console.log(flag+"flag");
         var dataplace = $(this).attr("data-target");
         console.log(coinid);
         console.log(dataplace);
@@ -52,8 +55,15 @@ $(document).ready(function () {
         // =================
         // set the condition
         // =================
-        console.log($(this).attr("class"))collapsed
-        if()
+     if(flag!="in collapse show"){
+         console.log("show")
+     }
+     else{
+        console.log("hide")   
+     }
+
+
+      
         if (timearray[idforstring] == null || timenow > timearray[idforstring]) {
             // ====================
             // get data from server
@@ -131,5 +141,10 @@ $(document).ready(function () {
                 `);
                 
         }
+
+
+  
+
+
     });
 });
