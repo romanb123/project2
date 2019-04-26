@@ -139,4 +139,22 @@ $(document).ready(function () {
             }
         }
     });
+    // function to show mainpage
+    $("#showmain").click(function(){
+        $("#main").show(); 
+        $("#report").hide();
+        $("#about").hide();
+      });
+       // function to show reports
+       $("#showreports").click(function(){
+        $("#main").hide(); 
+        $("#report").show();
+        $("#about").hide();
+      });
+        // function to show about
+      $("#showabout").click(function(){
+        $("#main").hide(); 
+        $("#report").hide();
+        $("#about").show();
+      });
 });
