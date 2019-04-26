@@ -1,6 +1,6 @@
 var timearray = [];
 var storage_array = [];
-h=0;
+h = 0;
 
 $(document).ready(function () {
     // ========================
@@ -43,36 +43,33 @@ $(document).ready(function () {
     // function fo more info
     // ========================
     $("body").on('click', '.moreinfo', function () {
+        $(this).parent().toggleClass("opened");
         var coinid = $(this).parent().find("#identify").text();
         var idforstring = $(this).parent().attr("id");
-        var flag= $(this).parent().find("div:first").attr("class");
-        console.log(flag+"flag");
+        var flag = $(this).parent().attr("class");
+        console.log(flag + "flag");
         var dataplace = $(this).attr("data-target");
         console.log(coinid);
         console.log(dataplace);
         var time = new Date();
         var timenow = time.getTime();
-        // =================
-        // set the condition
-        // =================
-     if(flag!="in collapse show"){
-         console.log("show")
-     }
-     else{
-        console.log("hide")   
-     }
-
-
-      
-        if (timearray[idforstring] == null || timenow > timearray[idforstring]) {
-            // ====================
-            // get data from server
-            // ====================   
-            $.ajax({
-                url: `https://api.coingecko.com/api/v3/coins/` + coinid, success: function (result) {
-                    $("body").find(`${dataplace}`).html(`
+                // ====================================================
+                //do actions only when press to more info not less info
+                // ====================================================  
+        if (flag == "card-body opened") {
+        // ==============================================================
+        // set the condition when fron server and when from local storage
+        // ===============================================================
+            if (timearray[idforstring] == null || timenow > timearray[idforstring]) {
+                // ====================
+                // get data from server
+                // ====================   
+                $.ajax({
+                    url: `https://api.coingecko.com/api/v3/coins/` + coinid, success: function (result) {
+                        $("body").find(`${dataplace}`).html(`
                 <div class="row">
-                <div class="col-lg-6">            
+                <div class="col-lg-6">  
+                <h1>from server</h1>          
                 <span>${result.market_data.current_price.usd}<span class="bold">$</span></span><br> 
                 <span>${result.market_data.current_price.eur}<span class="bold">€</span></span><br> 
                 <span>${result.market_data.current_price.ils}<span class="bold">₪</span></span><br>    
@@ -82,50 +79,50 @@ $(document).ready(function () {
                 </div>
                 </div>
                 `);
-                    // =======================================
-                    // set time when ajax requet made to array
-                    // ======================================= 
-                    var timeclicked = new Date();
+                        // =======================================
+                        // set time when ajax requet made to array
+                        // ======================================= 
+                        var timeclicked = new Date();
 
-                    countstart = timeclicked.getTime() + 120000;
-                    timearray[idforstring] = countstart;
-                    console.log("SERVER" + "the request::" + timearray[idforstring] +
-                        "timenow::" + timenow);
-                    // =============================== 
-                    // store the data to local storage
-                    // =============================== 
+                        countstart = timeclicked.getTime() + 120000;
+                        timearray[idforstring] = countstart;
+                        console.log("SERVER" + "the request::" + timearray[idforstring] +
+                            "timenow::" + timenow);
+                        // =============================== 
+                        // store the data to local storage
+                        // =============================== 
 
-                    var checker = localStorage.getItem("coinsdata");
-                    if (checker == null) {
-                        storage_array = [];
+                        var checker = localStorage.getItem("coinsdata");
+                        if (checker == null) {
+                            storage_array = [];
+                        }
+                        else {
+                            storage_array = JSON.parse(localStorage.getItem("coinsdata"));
+                        }
+                        console.log(storage_array);
+                        var thiscoin = {};
+                        thiscoin.dollar = result.market_data.current_price.usd;
+                        thiscoin.euro = result.market_data.current_price.eur;
+                        thiscoin.shekels = result.market_data.current_price.ils;
+                        thiscoin.pic = result.image.small;
+                        console.log(thiscoin);
+                        console.log(storage_array);
+                        storage_array[idforstring] = thiscoin;
+                        var array2storage = JSON.stringify(storage_array);
+                        localStorage.setItem("coinsdata", array2storage);
+
                     }
-                    else {
-                        storage_array = JSON.parse(localStorage.getItem("coinsdata"));
-                    }
-                    console.log(storage_array);
-                    var thiscoin = {};
-                    thiscoin.dollar = result.market_data.current_price.usd;
-                    thiscoin.euro = result.market_data.current_price.eur;
-                    thiscoin.shekels = result.market_data.current_price.ils;
-                    thiscoin.pic = result.image.small;
-                    console.log(thiscoin);
-                    console.log(storage_array);
-                    storage_array[idforstring] = thiscoin;
-                    var array2storage = JSON.stringify(storage_array);
-                    localStorage.setItem("coinsdata", array2storage);
-
-                }
-            });
-        }
-                    // =============================== 
-                    // get data from local storage
-                    // =============================== 
-        else {
-            console.log("LOCAL" + "the request::" + timearray[idforstring]
-                + "timenow::" + timenow);
+                });
+            }
+            // =============================== 
+            // get data from local storage
+            // =============================== 
+            else {
+                console.log("LOCAL" + "the request::" + timearray[idforstring]
+                    + "timenow::" + timenow);
                 fromstorage = JSON.parse(localStorage.getItem("coinsdata"));
                 console.log(fromstorage);
-                console.log("this data"+fromstorage[idforstring].dollar);
+                console.log("this data" + fromstorage[idforstring].dollar);
                 $("body").find(`${dataplace}`).html(`
                 <div class="row">
                 <div class="col-lg-6">
@@ -139,12 +136,7 @@ $(document).ready(function () {
                 </div>
                 </div>
                 `);
-                
+            }
         }
-
-
-  
-
-
     });
 });
