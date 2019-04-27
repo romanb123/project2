@@ -53,13 +53,13 @@ $(document).ready(function () {
         console.log(dataplace);
         var time = new Date();
         var timenow = time.getTime();
-                // ====================================================
-                //do actions only when press to more info not less info
-                // ====================================================  
+        // ====================================================
+        //do actions only when press to more info not less info
+        // ====================================================  
         if (flag == "card-body opened") {
-        // ==============================================================
-        // set the condition when fron server and when from local storage
-        // ===============================================================
+            // ==============================================================
+            // set the condition when fron server and when from local storage
+            // ===============================================================
             if (timearray[idforstring] == null || timenow > timearray[idforstring]) {
                 // ====================
                 // get data from server
@@ -140,21 +140,48 @@ $(document).ready(function () {
         }
     });
     // function to show mainpage
-    $("#showmain").click(function(){
-        $("#main").show(); 
+    $("#showmain").click(function () {
+        $("#main").show();
         $("#report").hide();
         $("#about").hide();
-      });
-       // function to show reports
-       $("#showreports").click(function(){
-        $("#main").hide(); 
+    });
+    // function to show reports
+    $("#showreports").click(function () {
+        $("#main").hide();
         $("#report").show();
         $("#about").hide();
-      });
-        // function to show about
-      $("#showabout").click(function(){
-        $("#main").hide(); 
+    });
+    // function to show about
+    $("#showabout").click(function () {
+        $("#main").hide();
         $("#report").hide();
         $("#about").show();
-      });
+    });
+    //   =============================
+    //              charts 
+    //   =============================
+
+
+    //Better to construct options first and then pass it as a parameter
+    var options = {
+        title: {
+            text: "Column Chart in jQuery CanvasJS"
+        },
+        data: [
+            {
+                // Change type to "doughnut", "line", "splineArea", etc.
+                type: "column",
+                dataPoints: [
+                    { label: "apple", y: 10 },
+                    { label: "orange", y: 15 },
+                    { label: "banana", y: 25 },
+                    { label: "mango", y: 30 },
+                    { label: "grape", y: 28 }
+                ]
+            }
+        ]
+    };
+
+    $("#chartContainer").CanvasJSChart(options);
+
 });
