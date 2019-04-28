@@ -16,6 +16,10 @@ $(document).ready(function () {
 <div class="col-lg-3 col-md-6 col-sm-12">
 <div class="card">
     <div class="card-body" id=${i}>  
+    <label class="switch">
+    <input type="checkbox">
+    <span class="slider round"></span>
+</label>
     <h1 class="card-title">${result[i].name}</h1>
         <h4 class="card-title"><span class="bold">id=</span>"<span id="identify">${result[i].id}</span>"</h4>
         <h4 class="card-title"><span class="bold">symbol"</span>=
