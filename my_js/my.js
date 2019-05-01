@@ -1,5 +1,7 @@
 var timearray = [];
 var storage_array = [];
+coins_array = ["USD", "BTC"];
+coins_object = {};
 h = 0;
 
 $(document).ready(function () {
@@ -8,9 +10,10 @@ $(document).ready(function () {
     // ========================
     $(".allcoins").click(function () {
         $.ajax({
-            url: "https://api.coingecko.com/api/v3/coins/list", success: function (result) {
+            url: "https://api.coingecko.com/api/v3/coins/list",
+            success: function (result) {
                 console.log(result);
-                for (var i = 0, len = 10; i < len; i++) {
+                for (var i = 0, len = 30; i < len; i++) {
                     $(".row").append(`
 <!-- card -->
 <div class="col-lg-3 col-md-6 col-sm-12">
@@ -21,7 +24,9 @@ $(document).ready(function () {
     <span class="slider round"></span>
 </label>
     <h1 class="card-title">${result[i].name}</h1>
-        <h4 class="card-title"><span class="bold">id=</span>"<span id="identify">${result[i].id}</span>"</h4>
+        <h4 class="card-title"><span class="bold">id=</span>"<span id="identify">${
+                        result[i].id
+                        }</span>"</h4>
         <h4 class="card-title"><span class="bold">symbol"</span>=
         ${result[i].symbol}"</h4>
       
@@ -46,11 +51,20 @@ $(document).ready(function () {
     // ========================
     // function fo more info
     // ========================
-    $("body").on('click', '.moreinfo', function () {
-        $(this).parent().toggleClass("opened");
-        var coinid = $(this).parent().find("#identify").text();
-        var idforstring = $(this).parent().attr("id");
-        var flag = $(this).parent().attr("class");
+    $("body").on("click", ".moreinfo", function () {
+        $(this)
+            .parent()
+            .toggleClass("opened");
+        var coinid = $(this)
+            .parent()
+            .find("#identify")
+            .text();
+        var idforstring = $(this)
+            .parent()
+            .attr("id");
+        var flag = $(this)
+            .parent()
+            .attr("class");
         console.log(flag + "flag");
         var dataplace = $(this).attr("data-target");
         console.log(coinid);
@@ -59,7 +73,7 @@ $(document).ready(function () {
         var timenow = time.getTime();
         // ====================================================
         //do actions only when press to more info not less info
-        // ====================================================  
+        // ====================================================
         if (flag == "card-body opened") {
             // ==============================================================
             // set the condition when fron server and when from local storage
@@ -67,40 +81,53 @@ $(document).ready(function () {
             if (timearray[idforstring] == null || timenow > timearray[idforstring]) {
                 // ====================
                 // get data from server
-                // ====================   
+                // ====================
                 $.ajax({
-                    url: `https://api.coingecko.com/api/v3/coins/` + coinid, success: function (result) {
+                    url: `https://api.coingecko.com/api/v3/coins/` + coinid,
+                    success: function (result) {
                         $("body").find(`${dataplace}`).html(`
                 <div class="row">
                 <div class="col-lg-6">  
                 <h1>from server</h1>          
-                <span>${result.market_data.current_price.usd}<span class="bold">$</span></span><br> 
-                <span>${result.market_data.current_price.eur}<span class="bold">€</span></span><br> 
-                <span>${result.market_data.current_price.ils}<span class="bold">₪</span></span><br>    
+                <span>${
+                            result.market_data.current_price.usd
+                            }<span class="bold">$</span></span><br> 
+                <span>${
+                            result.market_data.current_price.eur
+                            }<span class="bold">€</span></span><br> 
+                <span>${
+                            result.market_data.current_price.ils
+                            }<span class="bold">₪</span></span><br>    
                 </div>
                 <div class="col-lg-6">            
-                <img src="${result.image.small}" class="rounded" alt="Cinque Terre">           
+                <img src="${
+                            result.image.small
+                            }" class="rounded" alt="Cinque Terre">           
                 </div>
                 </div>
                 `);
                         // =======================================
                         // set time when ajax requet made to array
-                        // ======================================= 
+                        // =======================================
                         var timeclicked = new Date();
 
                         countstart = timeclicked.getTime() + 120000;
                         timearray[idforstring] = countstart;
-                        console.log("SERVER" + "the request::" + timearray[idforstring] +
-                            "timenow::" + timenow);
-                        // =============================== 
+                        console.log(
+                            "SERVER" +
+                            "the request::" +
+                            timearray[idforstring] +
+                            "timenow::" +
+                            timenow
+                        );
+                        // ===============================
                         // store the data to local storage
-                        // =============================== 
+                        // ===============================
 
                         var checker = localStorage.getItem("coinsdata");
                         if (checker == null) {
                             storage_array = [];
-                        }
-                        else {
+                        } else {
                             storage_array = JSON.parse(localStorage.getItem("coinsdata"));
                         }
                         console.log(storage_array);
@@ -114,16 +141,20 @@ $(document).ready(function () {
                         storage_array[idforstring] = thiscoin;
                         var array2storage = JSON.stringify(storage_array);
                         localStorage.setItem("coinsdata", array2storage);
-
                     }
                 });
             }
-            // =============================== 
+            // ===============================
             // get data from local storage
-            // =============================== 
+            // ===============================
             else {
-                console.log("LOCAL" + "the request::" + timearray[idforstring]
-                    + "timenow::" + timenow);
+                console.log(
+                    "LOCAL" +
+                    "the request::" +
+                    timearray[idforstring] +
+                    "timenow::" +
+                    timenow
+                );
                 fromstorage = JSON.parse(localStorage.getItem("coinsdata"));
                 console.log(fromstorage);
                 console.log("this data" + fromstorage[idforstring].dollar);
@@ -131,12 +162,20 @@ $(document).ready(function () {
                 <div class="row">
                 <div class="col-lg-6">
                 <h1>from local storage</h1>            
-                <span> <span class="bold">${fromstorage[idforstring].dollar}$</span></span><br> 
-                <span> <span class="bold">${fromstorage[idforstring].euro}€</span></span><br> 
-                <span> <span class="bold">₪${fromstorage[idforstring].shekels}</span></span><br>    
+                <span> <span class="bold">${
+                    fromstorage[idforstring].dollar
+                    }$</span></span><br> 
+                <span> <span class="bold">${
+                    fromstorage[idforstring].euro
+                    }€</span></span><br> 
+                <span> <span class="bold">₪${
+                    fromstorage[idforstring].shekels
+                    }</span></span><br>    
                 </div>
                 <div class="col-lg-6">            
-                <img src="${fromstorage[idforstring].pic}" class="rounded" alt="Cinque Terre">           
+                <img src="${
+                    fromstorage[idforstring].pic
+                    }" class="rounded" alt="Cinque Terre">           
                 </div>
                 </div>
                 `);
@@ -154,6 +193,45 @@ $(document).ready(function () {
         $("#main").hide();
         $("#report").show();
         $("#about").hide();
+
+        // make the ajax call for the reports:
+
+        $.ajax({
+            url:
+                "https://min-api.cryptocompare.com/data/pricemulti?fsyms=" +
+                coins_array +
+                "&tsyms=USD",
+            success: function (result) {
+                var first = "USD";
+                console.log(first);
+                coins_object = result;
+                console.log(Object.keys(coins_object));
+                console.log(coins_object[coins_array[1]].USD);
+                // chart:
+                var options = {
+                    title: {
+                        text: "Number of Active Users in Website"
+                    },
+
+                    data: [{
+                        type: "column",
+                        yValueFormatString: "#,###",
+                        indexLabel: "{y}",
+                        color: "#546BC1",
+                        dataPoints: [
+                            { label: coins_array[0], y: coins_object[coins_array[0]].USD },
+                            { label: coins_array[1], y: coins_object[coins_array[1]].USD },
+                            { label: coins_array[3], y: coins_object[coins_array[3]].USD },
+                            { label: coins_array[4], y: coins_object[coins_array[4]].USD },
+                            { label: coins_array[5], y: coins_object[coins_array[5]].USD },
+
+                        ]
+                    }]
+                };
+                $("#chartContainer").CanvasJSChart(options);
+
+            }
+        });
     });
     // function to show about
     $("#showabout").click(function () {
@@ -161,31 +239,5 @@ $(document).ready(function () {
         $("#report").hide();
         $("#about").show();
     });
-    //   =============================
-    //              charts 
-    //   =============================
-
-
-    //Better to construct options first and then pass it as a parameter
-    var options = {
-        title: {
-            text: "Column Chart in jQuery CanvasJS"
-        },
-        data: [
-            {
-                // Change type to "doughnut", "line", "splineArea", etc.
-                type: "column",
-                dataPoints: [
-                    { label: "apple", y: 10 },
-                    { label: "orange", y: 15 },
-                    { label: "banana", y: 25 },
-                    { label: "mango", y: 30 },
-                    { label: "grape", y: 28 }
-                ]
-            }
-        ]
-    };
-
-    $("#chartContainer").CanvasJSChart(options);
 
 });
