@@ -3,6 +3,22 @@ var storage_array = [];
 coins_array = ["USD", "BTC"];
 coins_object = {};
 h = 0;
+var options = {
+    title: {
+        text: "Number of Active Users in Website"
+    },
+
+    data: [{
+        type: "column",
+        yValueFormatString: "#,###",
+        indexLabel: "{y}",
+        color: "#546BC1",
+        dataPoints: [
+            { label: "wewewe", y: 15 },
+        ]
+    }]
+};
+
 
 $(document).ready(function () {
     // ========================
@@ -208,27 +224,20 @@ $(document).ready(function () {
                 console.log(Object.keys(coins_object));
                 console.log(coins_object[coins_array[1]].USD);
                 // chart:
-                var options = {
-                    title: {
-                        text: "Number of Active Users in Website"
-                    },
-
-                    data: [{
-                        type: "column",
-                        yValueFormatString: "#,###",
-                        indexLabel: "{y}",
-                        color: "#546BC1",
-                        dataPoints: [
-                            { label: coins_array[0], y: coins_object[coins_array[0]].USD },
-                            { label: coins_array[1], y: coins_object[coins_array[1]].USD },
-                            { label: coins_array[3], y: coins_object[coins_array[3]].USD },
-                            { label: coins_array[4], y: coins_object[coins_array[4]].USD },
-                            { label: coins_array[5], y: coins_object[coins_array[5]].USD },
-
-                        ]
-                    }]
-                };
+                options.data[0].dataPoints[1] = { label: "dfgdfg", y: 15, x: 1 };
                 $("#chartContainer").CanvasJSChart(options);
+
+                console.log(options.data);
+
+                // for (let index = 0; index < 5; index++) {
+                //     if ([coins_array[index]].USD == undefined) {
+                //         options.data[index] = { label: "no data", y: 0 };
+                //     }
+                //     else {
+                //         options.data[index] = { label: coins_array[index], y: coins_object[coins_array[index]].USD };
+                //     }
+
+                // }
 
             }
         });
