@@ -1,16 +1,18 @@
-body{
-    text-align: center;
+body {
+  text-align: center;
 }
-a:hover,button:hover { cursor: pointer;}
-.bold{
-    font-weight: bold;
+a:hover,
+button:hover {
+  cursor: pointer;
 }
-.col-lg-3{
-    margin-top:5px;
- 
+.bold {
+  font-weight: bold;
 }
-img{
-margin-top: 14px;
+.col-lg-3 {
+  margin-top: 5px;
+}
+img {
+  margin-top: 14px;
 }
 .spinner {
   margin: 15px auto;
@@ -25,7 +27,7 @@ margin-top: 14px;
   height: 100%;
   width: 6px;
   display: inline-block;
-  
+
   -webkit-animation: sk-stretchdelay 1.2s infinite ease-in-out;
   animation: sk-stretchdelay 1.2s infinite ease-in-out;
 }
@@ -36,8 +38,8 @@ margin-top: 14px;
 }
 
 .spinner .rect3 {
-  -webkit-animation-delay: -1.0s;
-  animation-delay: -1.0s;
+  -webkit-animation-delay: -1s;
+  animation-delay: -1s;
 }
 
 .spinner .rect4 {
@@ -56,7 +58,7 @@ margin-top: 14px;
   height: 34px;
 }
 
-.switch input { 
+.switch input {
   opacity: 0;
   width: 0;
   height: 0;
@@ -70,8 +72,8 @@ margin-top: 14px;
   right: 0;
   bottom: 0;
   background-color: #ccc;
-  -webkit-transition: .4s;
-  transition: .4s;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
 }
 
 .slider:before {
@@ -82,16 +84,16 @@ margin-top: 14px;
   left: 4px;
   bottom: 4px;
   background-color: white;
-  -webkit-transition: .4s;
-  transition: .4s;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
 }
 
 input:checked + .slider {
-  background-color: #2196F3;
+  background-color: #2196f3;
 }
 
 input:focus + .slider {
-  box-shadow: 0 0 1px #2196F3;
+  box-shadow: 0 0 1px #2196f3;
 }
 
 input:checked + .slider:before {
@@ -108,25 +110,34 @@ input:checked + .slider:before {
 .slider.round:before {
   border-radius: 50%;
 }
-#report{
-  display:none;
+#report {
+  display: none;
 }
-#about{
-  display:none;
+#about {
+  display: none;
 }
 
 @-webkit-keyframes sk-stretchdelay {
-  0%, 40%, 100% { -webkit-transform: scaleY(0.4) }  
-  20% { -webkit-transform: scaleY(1.0) }
+  0%,
+  40%,
+  100% {
+    -webkit-transform: scaleY(0.4);
+  }
+  20% {
+    -webkit-transform: scaleY(1);
+  }
 }
 
 @keyframes sk-stretchdelay {
-  0%, 40%, 100% { 
+  0%,
+  40%,
+  100% {
     transform: scaleY(0.4);
     -webkit-transform: scaleY(0.4);
-  }  20% { 
-    transform: scaleY(1.0);
-    -webkit-transform: scaleY(1.0);
+  }
+  20% {
+    transform: scaleY(1);
+    -webkit-transform: scaleY(1);
   }
 }
 /* 1556122893049

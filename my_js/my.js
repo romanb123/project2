@@ -1,23 +1,42 @@
 var timearray = [];
 var storage_array = [];
-coins_array = ["USD", "BTC"];
+coins_array = ["ETH", "ZEC", "ZEC", "ZEC", "ZEC"];
 coins_object = {};
 h = 0;
+
+
+//Better to construct options first and then pass it as a parameter
+
+
+
+
+//Better to construct options first and then pass it as a parameter
 var options = {
     title: {
-        text: "Number of Active Users in Website"
+        text: "Column Chart in jQuery CanvasJS"
     },
-
-    data: [{
-        type: "column",
-        yValueFormatString: "#,###",
-        indexLabel: "{y}",
-        color: "#546BC1",
-        dataPoints: [
-            { label: "wewewe", y: 15 },
-        ]
-    }]
+    data: [
+        {
+            // Change type to "doughnut", "line", "splineArea", etc.
+            type: "column",
+            dataPoints: [
+                { label: "apple", y: 0.1 },
+                { label: "orange", y: 200 },
+                { label: "banana", y: 25 },
+                { label: "mango", y: 30 },
+                { label: "grape", y: 28 }
+            ]
+        }
+    ]
 };
+
+
+
+
+
+
+
+
 
 
 $(document).ready(function () {
@@ -224,21 +243,21 @@ $(document).ready(function () {
                 console.log(Object.keys(coins_object));
                 console.log(coins_object[coins_array[1]].USD);
                 // chart:
-                options.data[0].dataPoints[1] = { label: "dfgdfg", y: 15, x: 1 };
+
+
+                console.log(options.data[0].dataPoints);
+
+                for (let index = 0; index < 5; index++) {
+                    if (coins_object[coins_array[index]] == undefined) {
+                        options.data[0].dataPoints[index] = { label: "no data", y: 0, x: index };
+                    }
+                    else {
+                        options.data[0].dataPoints[index] = { label: coins_array[index] + ":" + coins_object[coins_array[index]].USD + "-$", y: coins_object[coins_array[index]].USD, x: index };
+                    }
+
+                }
                 $("#chartContainer").CanvasJSChart(options);
-
-                console.log(options.data);
-
-                // for (let index = 0; index < 5; index++) {
-                //     if ([coins_array[index]].USD == undefined) {
-                //         options.data[index] = { label: "no data", y: 0 };
-                //     }
-                //     else {
-                //         options.data[index] = { label: coins_array[index], y: coins_object[coins_array[index]].USD };
-                //     }
-
-                // }
-
+                console.log(options.data[0].dataPoints);
             }
         });
     });
