@@ -267,5 +267,16 @@ $(document).ready(function () {
         $("#report").hide();
         $("#about").show();
     });
+    // function to send data to report:
+    $(".slider").click(function () {
+        if ($(this).css("background-color") == "rgb(204, 204, 204)") {
+            console.log("checked");
+
+
+        }
+        else {
+            console.log("unchecked");
+        }
+    });
 
 });
