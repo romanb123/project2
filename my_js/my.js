@@ -2,6 +2,7 @@ var timearray = [];
 var storage_array = [];
 coins_array = ["ETH", "ZEC", "ZEC", "ZEC", "ZEC"];
 coins_object = {};
+five_array=[];
 h = 0;
 
 
@@ -270,14 +271,26 @@ $(document).ready(function () {
     // function to send data to report:
     $( "body" ).on( "click", ".slider", function() {
         console.log(this);
-        // if ($(this).css("background-color") == "rgb(204, 204, 204)") {
-        //     console.log("checked");
-
-
-        // }
-        // else {
-        //     console.log("unchecked");
-        // }
+        if ($(this).css("background-color") == "rgb(204, 204, 204)") {
+            console.log("checked");
+            if(five_array.length>5){
+                alert("too much coins")
+                console.log(five_array);  
+            }
+           else{
+                five_array.push("one");
+            console.log(five_array);  
+            }
+        }
+        else {
+            console.log("unchecked");
+            for( var i = 0; i < five_array.length; i++){ 
+                if ( five_array[i] ==="one") {
+                    five_array.splice(i, 1); 
+                    console.log(five_array); 
+                }
+             }
+        }
     });
 
 });
