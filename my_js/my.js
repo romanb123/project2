@@ -2,7 +2,7 @@ var timearray = [];
 var storage_array = [];
 coins_array = ["ETH", "ZEC", "ZEC", "ZEC", "ZEC"];
 coins_object = {};
-five_array=[];
+five_array = [];
 h = 0;
 
 
@@ -55,10 +55,8 @@ $(document).ready(function () {
 <div class="col-lg-3 col-md-6 col-sm-12">
 <div class="card">
     <div class="card-body" id=${i}>  
-    <label class="switch">
-    <input type="checkbox">
-    <span class="slider round"></span>
-</label>
+    <input type="checkbox" class="form-check-input" id="exampleCheck1">
+    <label class="form-check-label" for="exampleCheck1">send to report</label>
     <h1 class="card-title">${result[i].name}</h1>
         <h4 class="card-title"><span class="bold">id=</span>"<span id="identify">${
                         result[i].id
@@ -269,17 +267,18 @@ $(document).ready(function () {
         $("#about").show();
     });
     // function to send data to report:
-    $( "body" ).on( "click", ".slider", function() {
-        console.log(this);
-      let thatcoin= $(this).parent().parent().find("#identify").text().toUpperCase();
-      console.log(thatcoin);
-      
+    $("body").on("change", ".form-check-input", function () {
 
-        if ($(this).css("background-color") == "rgb(204, 204, 204)") {
+
+          let thatcoin= $(this).parent().find("#identify").text().toUpperCase();
+          console.log(thatcoin);
+
+
+        if ($(this).is(':checked')) {
             console.log("checked");
-            if(five_array.length>5){
-                alert("too much coins")
-                console.log(five_array);  
+            if(five_array.length>=5){    
+               $('#myModal').modal('show');
+                 console.log(five_array);  
             }
            else{
                 five_array.push(thatcoin);
