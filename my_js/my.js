@@ -55,7 +55,7 @@ $(document).ready(function () {
 <div class="col-lg-3 col-md-6 col-sm-12">
 <div class="card">
     <div class="card-body" id=${i}>  
-    <input type="checkbox" class="form-check-input" id="exampleCheck1">
+    <input type="checkbox" class="form-check-input" id=check${i}>
     <label class="form-check-label" for="exampleCheck1">send to report</label>
     <h1 class="card-title">${result[i].name}</h1>
         <h4 class="card-title"><span class="bold">id=</span>"<span id="identify">${
@@ -267,9 +267,10 @@ $(document).ready(function () {
         $("#about").show();
     });
     // function to send data to report:
-    $("body").on("change", ".form-check-input", function () {
+    $(".row").on("change", ".form-check-input", function () {
 
-
+let thisdefinder=$(this).attr("id");
+console.log(thisdefinder);
           let thatcoin= $(this).parent().find("#identify").text().toUpperCase();
           console.log(thatcoin);
 
@@ -278,11 +279,15 @@ $(document).ready(function () {
             console.log("checked");
             if(five_array.length>=5){    
                $('#myModal').modal('show');
-                 console.log(five_array);  
+                 console.log(five_array);
+                 $(this).attr('checked', false);  
             }
            else{
                 five_array.push(thatcoin);
-            console.log(five_array);  
+            console.log(five_array); 
+            $(".modal-body").append(`<div><input type="checkbox" class="form-check-input" id="${thisdefinder}" checked>
+            <label class="form-check-label" for="exampleCheck1" ><span>${thatcoin}</span></label><br></div>
+            `) 
             }
         }
         else {
@@ -295,5 +300,22 @@ $(document).ready(function () {
              }
         }
     });
+
+    // modal check/uncheck
+    $(".modal-body").on("change", ".form-check-input", function(){
+        let modalcoin= $(this).parent().find("span").text().toUpperCase();
+        console.log(modalcoin);
+        let thisdefinder=$(this).attr("id");
+        console.log(thisdefinder);
+        $("body").find("#"+thisdefinder).attr('checked', false);
+        console.log($("body").find("#"+thisdefinder).is(':checked'));
+        for( var i = 0; i < five_array.length; i++){ 
+            if ( five_array[i] ===modalcoin) {
+                five_array.splice(i, 1); 
+                console.log(five_array); 
+            }
+         }
+       
+      });
 
 });
