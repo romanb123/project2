@@ -271,6 +271,10 @@ $(document).ready(function () {
     // function to send data to report:
     $( "body" ).on( "click", ".slider", function() {
         console.log(this);
+      let thatcoin= $(this).parent().parent().find("#identify").text().toUpperCase();
+      console.log(thatcoin);
+      
+
         if ($(this).css("background-color") == "rgb(204, 204, 204)") {
             console.log("checked");
             if(five_array.length>5){
@@ -278,14 +282,14 @@ $(document).ready(function () {
                 console.log(five_array);  
             }
            else{
-                five_array.push("one");
+                five_array.push(thatcoin);
             console.log(five_array);  
             }
         }
         else {
             console.log("unchecked");
             for( var i = 0; i < five_array.length; i++){ 
-                if ( five_array[i] ==="one") {
+                if ( five_array[i] ===thatcoin) {
                     five_array.splice(i, 1); 
                     console.log(five_array); 
                 }
