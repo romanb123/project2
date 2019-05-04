@@ -268,15 +268,16 @@ $(document).ready(function () {
         $("#about").show();
     });
     // function to send data to report:
-    $(".slider").click(function () {
-        if ($(this).css("background-color") == "rgb(204, 204, 204)") {
-            console.log("checked");
+    $( "body" ).on( "click", ".slider", function() {
+        console.log(this);
+        // if ($(this).css("background-color") == "rgb(204, 204, 204)") {
+        //     console.log("checked");
 
 
-        }
-        else {
-            console.log("unchecked");
-        }
+        // }
+        // else {
+        //     console.log("unchecked");
+        // }
     });
 
 });
