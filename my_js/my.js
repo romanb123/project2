@@ -6,6 +6,7 @@ five_array = [];
 h = 0;
 
 
+
 //Better to construct options first and then pass it as a parameter
 
 
@@ -45,17 +46,33 @@ $(document).ready(function () {
     // function for all coins
     // ========================
     $(".allcoins").click(function () {
+        $(".row").html("");
+
         $.ajax({
             url: "https://api.coingecko.com/api/v3/coins/list",
             success: function (result) {
                 console.log(result);
-                for (var i = 0, len = 30; i < len; i++) {
+                for (var i = 0, len = 7; i < len; i++) {
+                    var checkvalidated;
+                    // check if chechbox should be ckecked
+                    for (var s = 0; s < five_array.length; s++) {
+                        if (five_array[s] == result[i].id.toUpperCase()) {
+                            checkvalidated = "checked";
+                            console.log("checkvalidated:" +
+                                checkvalidated + "*****" + "result[i].id:" +
+                                result[i].id.toUpperCase() + "====" + five_array[s] + "^^^^" + i);
+                        }
+
+                    }
+
+
+
                     $(".row").append(`
 <!-- card -->
 <div class="col-lg-3 col-md-6 col-sm-12">
 <div class="card">
     <div class="card-body" id=${i}>  
-    <input type="checkbox" class="form-check-input" id=check${i}>
+    <input type="checkbox" class="form-check-input" id=${result[i].id.toUpperCase()} ${checkvalidated}>
     <label class="form-check-label" for="exampleCheck1">send to report</label>
     <h1 class="card-title">${result[i].name}</h1>
         <h4 class="card-title"><span class="bold">id=</span>"<span id="identify">${
@@ -78,6 +95,7 @@ $(document).ready(function () {
  </div>
 </div>
 `);
+                    checkvalidated = "";
                 }
             }
         });
@@ -268,54 +286,48 @@ $(document).ready(function () {
     });
     // function to send data to report:
     $(".row").on("change", ".form-check-input", function () {
-
-let thisdefinder=$(this).attr("id");
-console.log(thisdefinder);
-          let thatcoin= $(this).parent().find("#identify").text().toUpperCase();
-          console.log(thatcoin);
-
-
+        let thatcoin = $(this).attr("id");
         if ($(this).is(':checked')) {
             console.log("checked");
-            if(five_array.length>=5){    
-               $('#myModal').modal('show');
-                 console.log(five_array);
-                 $(this).attr('checked', false);  
+            if (five_array.length >= 5) {
+                $('#myModal').modal('show');
+                console.log(five_array);
+                $(this).attr('checked', false);
             }
-           else{
+            else {
                 five_array.push(thatcoin);
-            console.log(five_array); 
-            $(".modal-body").append(`<div><input type="checkbox" class="form-check-input" id="${thisdefinder}" checked>
-            <label class="form-check-label" for="exampleCheck1" ><span>${thatcoin}</span></label><br></div>
-            `) 
+                console.log(five_array);
+                $(".modal-body").append(`<div>
+                <input type="checkbox" class="form-check-input" id=${thatcoin}>
+                <span>${thatcoin}</span><br></div>
+                `);
             }
         }
         else {
             console.log("unchecked");
-            for( var i = 0; i < five_array.length; i++){ 
-                if ( five_array[i] ===thatcoin) {
-                    five_array.splice(i, 1); 
-                    console.log(five_array); 
+            for (var i = 0; i < five_array.length; i++) {
+                if (five_array[i] === thatcoin) {
+                    five_array.splice(i, 1);
+                    console.log(five_array);
                 }
-             }
+            }
         }
     });
 
     // modal check/uncheck
-    $(".modal-body").on("change", ".form-check-input", function(){
-        let modalcoin= $(this).parent().find("span").text().toUpperCase();
+    $(".modal-body").on("change", ".form-check-input", function () {
+        let modalcoin = $(this).attr("id");
         console.log(modalcoin);
-        let thisdefinder=$(this).attr("id");
-        console.log(thisdefinder);
-        $("body").find("#"+thisdefinder).attr('checked', false);
-        console.log($("body").find("#"+thisdefinder).is(':checked'));
-        for( var i = 0; i < five_array.length; i++){ 
-            if ( five_array[i] ===modalcoin) {
-                five_array.splice(i, 1); 
-                console.log(five_array); 
+        $("body").find("#" + modalcoin).attr('checked', false);
+        console.log($("body").find("#" + modalcoin).is(':checked'));
+        for (var i = 0; i < five_array.length; i++) {
+            if (five_array[i] === modalcoin) {
+                five_array.splice(i, 1);
+                console.log(five_array);
+                $(this).parent().hide();
             }
-         }
-       
-      });
+        }
+
+    });
 
 });
