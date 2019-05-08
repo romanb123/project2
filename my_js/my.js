@@ -42,6 +42,24 @@ var options = {
 
 
 $(document).ready(function () {
+    // ===========================
+    // function for search one coin
+    // ============================
+    $("#search").keyup(function () {
+        console.log($("body").find("input"));
+
+        // if ($("body").find(".form-check-input").attr("id") != "search") {
+        //     if ($("body").find(".form-check-input").attr("id") != $("#search").val()) {
+        //         console.log($("body").find(".form-check-input").attr("id"));
+        //         console.log($("#search").val());
+        //     }
+        //     else {
+        //        console.log($("body").find(".form-check-input").attr("id"));
+        //         console.log($("#search").val());
+        //     }
+        // }
+
+    });
     // ========================
     // function for all coins
     // ========================
