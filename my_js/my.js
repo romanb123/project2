@@ -46,19 +46,19 @@ $(document).ready(function () {
     // function for search one coin
     // ============================
     $("#search").keyup(function () {
-        console.log($("body").find("input"));
 
-        // if ($("body").find(".form-check-input").attr("id") != "search") {
-        //     if ($("body").find(".form-check-input").attr("id") != $("#search").val()) {
-        //         console.log($("body").find(".form-check-input").attr("id"));
-        //         console.log($("#search").val());
-        //     }
-        //     else {
-        //        console.log($("body").find(".form-check-input").attr("id"));
-        //         console.log($("#search").val());
-        //     }
-        // }
-
+        var allinputs = $("body").find(".coinname");
+        console.log(allinputs);
+        console.log(allinputs.length);
+        for (let t = 0; t < allinputs.length; t++) {
+            console.log($(allinputs[t]).text());
+            if ($(allinputs[t]).text().toUpperCase().includes($("#search").val().toUpperCase()) ==true) {
+                $(allinputs[t]).parent().parent().show();
+            }
+            else {
+                $(allinputs[t]).parent().parent().hide();
+            }
+        }
     });
     // ========================
     // function for all coins
@@ -70,7 +70,7 @@ $(document).ready(function () {
             url: "https://api.coingecko.com/api/v3/coins/list",
             success: function (result) {
                 console.log(result);
-                for (var i = 0, len = 7; i < len; i++) {
+                for (var i = 0, len =100; i < len; i++) {
                     var checkvalidated;
                     // check if chechbox should be ckecked
                     for (var s = 0; s < five_array.length; s++) {
@@ -90,9 +90,9 @@ $(document).ready(function () {
 <div class="col-lg-3 col-md-6 col-sm-12">
 <div class="card">
     <div class="card-body" id=${i}>  
-    <input type="checkbox" class="form-check-input" id=${result[i].id.toUpperCase()} ${checkvalidated}>
+    <input type="checkbox" class="form-check-input" id=${result[i].symbol.toUpperCase()} ${checkvalidated}>
     <label class="form-check-label" for="exampleCheck1">send to report</label>
-    <h1 class="card-title">${result[i].name}</h1>
+    <h1 class="card-title coinname">${result[i].name}</h1>
         <h4 class="card-title"><span class="bold">id=</span>"<span id="identify">${
                         result[i].id
                         }</span>"</h4>
