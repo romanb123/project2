@@ -480,7 +480,7 @@ $(document).ready(function () {
                 five_array.push(thatcoin);
                 console.log(five_array);
                 $(".modal-body").append(`<div>
-                <input type="checkbox" class="form-check-input" id=${thatcoin}>
+                <input type="checkbox" class="form-check-input" id=${thatcoin} checked>
                 <span>${thatcoin}</span><br></div>
                 `);
             }
