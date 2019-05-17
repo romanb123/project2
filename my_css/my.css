@@ -1,8 +1,12 @@
 body {
   text-align: center;
+  background-color: blue;
 }
-input {
-  background-color: red;
+.jumbotron {
+  background: url(./btc.jpg);
+  color: white;
+  background-size: cover;
+  background-attachment: fixed;
 }
 .modalspan {
   background-color: grey;
