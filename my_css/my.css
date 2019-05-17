@@ -1,6 +1,10 @@
 body {
   text-align: center;
 }
+.modalspan {
+  background-color: grey;
+  color: white;
+}
 a:hover,
 button:hover {
   cursor: pointer;
@@ -15,7 +19,6 @@ img {
   margin-top: 14px;
 
   /* spinner */
-  
 }
 .spinner {
   margin: 15px auto;
@@ -55,10 +58,9 @@ img {
   animation-delay: -0.8s;
 }
 
-
 /* checkbox */
 
-  /* other */
+/* other */
 
 #report {
   display: none;

@@ -14,36 +14,6 @@ var intervel;
 
 
 
-
-//Better to construct options first and then pass it as a parameter
-var options = {
-    title: {
-        text: "Column Chart in jQuery CanvasJS"
-    },
-    data: [
-        {
-            // Change type to "doughnut", "line", "splineArea", etc.
-            type: "column",
-            dataPoints: [
-                { label: "apple", y: 0.1 },
-                { label: "orange", y: 200 },
-                { label: "banana", y: 25 },
-                { label: "mango", y: 30 },
-                { label: "grape", y: 28 }
-            ]
-        }
-    ]
-};
-
-
-
-
-
-
-
-
-
-
 $(document).ready(function () {
     // ===========================
     // function for search one coin
@@ -56,10 +26,10 @@ $(document).ready(function () {
         for (let t = 0; t < allinputs.length; t++) {
             console.log($(allinputs[t]).text());
             if ($(allinputs[t]).text().toUpperCase().includes($("#search").val().toUpperCase()) == true) {
-                $(allinputs[t]).parent().parent().show();
+                $(allinputs[t]).parent().parent().parent().show();
             }
             else {
-                $(allinputs[t]).parent().parent().hide();
+                $(allinputs[t]).parent().parent().parent().hide();
             }
         }
     });
@@ -287,21 +257,21 @@ $(document).ready(function () {
             $.ajax({
                 url:
                     "https://min-api.cryptocompare.com/data/pricemulti?fsyms=" +
-                    coins_array +
+                    five_array +
                     "&tsyms=USD",
                 success: function (result) {
                     coins_object = result;
                     // chart:
                     for (let index = 0; index < 5; index++) {
-                        if (coins_object[coins_array[index]] == undefined) {
+                        if (coins_object[five_array[index]] == undefined) {
                             validname_arr[index] = "no data";
                             options.data[index].name = "no data";
                             validvalue_arr[index] = 0;
                         }
                         else {
-                            validname_arr[index] = coins_array[index];
-                            options.data[index].name = coins_array[index];
-                            validvalue_arr[index] = coins_object[coins_array[index]].USD;
+                            validname_arr[index] = five_array[index];
+                            options.data[index].name = five_array[index];
+                            validvalue_arr[index] = coins_object[five_array[index]].USD;
                         }
                     }
                     console.log(validname_arr);
@@ -471,7 +441,7 @@ $(document).ready(function () {
         let thatcoin = $(this).attr("id");
         if ($(this).is(':checked')) {
             console.log("checked");
-            if (five_array.length >= 5) {
+            if (five_array.length > 4) {
                 $('#myModal').modal('show');
                 console.log(five_array);
                 $(this).attr('checked', false);
@@ -481,7 +451,7 @@ $(document).ready(function () {
                 console.log(five_array);
                 $(".modal-body").append(`<div>
                 <input type="checkbox" class="form-check-input" id=${thatcoin} checked>
-                <span>${thatcoin}</span><br></div>
+                <span class="modalspan">${thatcoin}</span><br></div>
                 `);
             }
         }
@@ -503,7 +473,7 @@ $(document).ready(function () {
         $("body").find("#" + modalcoin).attr('checked', false);
         console.log($("body").find("#" + modalcoin).is(':checked'));
         for (var i = 0; i < five_array.length; i++) {
-            if (five_array[i] === modalcoin) {
+            if (five_array[i] == modalcoin) {
                 five_array.splice(i, 1);
                 console.log(five_array);
                 $(this).parent().hide();
