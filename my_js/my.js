@@ -66,13 +66,13 @@ $(document).ready(function () {
     <input type="checkbox" class="form-check-input" id=${result[i].symbol.toUpperCase()} ${checkvalidated}>
     <label class="form-check-label" for="exampleCheck1">send to report</label>
     <h1 class="card-title coinname">${result[i].name}</h1>
-        <h4 class="card-title"><span class="bold">id=</span>"<span id="identify">${
+        <h4 class="card-title"><span class="bold">id</span> <span id="identify">${
                         result[i].id
-                        }</span>"</h4>
-        <h4 class="card-title"><span class="bold">symbol"</span>=
-        ${result[i].symbol}"</h4>
+                        }</span></h4>
+        <h4 class="card-title"><span class="bold">symbol </span> 
+        ${result[i].symbol}</h4>
       
-        <button type="button" class="btn btn-info moreinfo" data-toggle="collapse" data-target="#demo${i}">Simple collapsible</button>
+        <button type="button" class="btn btn-info moreinfo" data-toggle="collapse" data-target="#demo${i}">more info</button>
         <div id="demo${i}" class="collapse in">  
         <div class="spinner">
         <div class="rect1"></div>
@@ -131,7 +131,7 @@ $(document).ready(function () {
                         $("body").find(`${dataplace}`).html(`
                 <div class="row">
                 <div class="col-lg-6">  
-                <h1>from server</h1>          
+                <span>from server</span>          
                 <span>${
                             result.market_data.current_price.usd
                             }<span class="bold">$</span></span><br> 
@@ -204,14 +204,14 @@ $(document).ready(function () {
                 $("body").find(`${dataplace}`).html(`
                 <div class="row">
                 <div class="col-lg-6">
-                <h1>from local storage</h1>            
-                <span> <span class="bold">${
+                <span>from local storage</span>            
+                <span> <span >${
                     fromstorage[idforstring].dollar
                     }$</span></span><br> 
-                <span> <span class="bold">${
+                <span> <span>${
                     fromstorage[idforstring].euro
                     }€</span></span><br> 
-                <span> <span class="bold">₪${
+                <span> <span>₪${
                     fromstorage[idforstring].shekels
                     }</span></span><br>    
                 </div>
@@ -461,10 +461,13 @@ $(document).ready(function () {
                 if (five_array[i] === thatcoin) {
                     five_array.splice(i, 1);
                     console.log(five_array);
+                    $(".modal-body").find("#" + `${thatcoin}`).parent().remove();
+                    console.log($(".modal-body"));
                 }
             }
         }
     });
+
 
     // modal check/uncheck
     $(".modal-body").on("change", ".form-check-input", function () {

@@ -1,6 +1,9 @@
 body {
   text-align: center;
 }
+input {
+  background-color: red;
+}
 .modalspan {
   background-color: grey;
   color: white;
